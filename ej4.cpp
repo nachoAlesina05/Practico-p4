@@ -32,5 +32,6 @@ int Punto::posY(Punto p){
 
 
 int main(){
+  
   return 0;
 }
