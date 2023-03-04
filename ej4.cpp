@@ -6,8 +6,8 @@ class Punto{
   public:
     Punto* crearPunto(); //Lo inicializa en 0
     void setPunto(Punto *p, int x,int y);
-    int posX(Punto);
-    int posY(Punto);
+    int posX(Punto p);
+    int posY(Punto p);
 };
 
 Punto* Punto::crearPunto(){
@@ -16,6 +16,19 @@ Punto* Punto::crearPunto(){
   a->y=0;
   return a;
 }
+
+void Punto::setPunto(Punto *p,int x, int y){
+  p->x=x;
+  p->y=y;
+}
+
+int Punto::posX(Punto p){
+  return p.x;
+}
+int Punto::posY(Punto p){
+  return p.y;
+}
+
 
 
 int main(){
