@@ -1,2 +1,2 @@
-ej4: ej4.cpp
-	g++ -o ej4 ej4.cpp
+ej5: ej5.cpp
+	g++ -o ej5 ej5.cpp
