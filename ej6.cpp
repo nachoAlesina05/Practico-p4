@@ -1,22 +1,23 @@
 #include <iostream>
 #include <cstring>
-
+using namespace std;
 class String{
     private:
         char* cadena;
-        const int largo;
+        int largo;
     public:
         String();
         String(char*);
         String(const String&);
         ~String();
+        char* getElem();
         bool enRango(int);
         String operator+(String);
         bool operator==(String);
         char operator[](int);
-       /* friend std::ostream& operator<<(std::ostream& os, const String& s);
-friend std::istream& operator>>(std::istream& is, String& s);
-*/};
+        friend ostream& operator << (ostream &o,String &s);
+        friend istream& operator >>(istream &i,String &s);    
+};
 
 String::String() :largo(0) {
     cadena = NULL;
@@ -27,6 +28,12 @@ String::String(char* c) : cadena(c), largo(strlen(c)) {}
 
 
 String::String(const String& s) : cadena(s.cadena), largo(s.largo) {
+}
+
+String::~String(){}
+
+char* String::getElem(){
+    return cadena;
 }
 
 bool String::enRango(int index) {
@@ -51,6 +58,7 @@ bool String::operator==(String s) {
     }
     return true;
 }
+
 char String::operator[](int pos){
     try
     {
@@ -62,18 +70,23 @@ char String::operator[](int pos){
         std::cout << e.what() << '\n';
         return 'a';
     }
-    }
-/*std::ostream& operator<<(std::ostream& os, const String& s) {
-    os << s.cadena;
-    return os;
 }
 
-std::istream& operator>>(std::istream& is, String& s) {
-    char buffer[15];
-    is >> buffer;
+ostream& operator<<(ostream &o,String &s){
+    o<< s.getElem();
+    return o;
+}
+istream& operator>>(istream &i,String &s){
+    cout << "Introducir string";
+    char buffer[100];
+    i.getline(buffer, 100);
     s = buffer;
-    return is;
-}*/
+    return i;
+}
+
 int main() {
+    String s;
+    cin >> s;
+    cout << s;
     return 0;
 }
