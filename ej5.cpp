@@ -1,12 +1,11 @@
 #include <iostream>
-
+using namespace std;
 
 class Fecha{
-    private:
+    public:
         int d;
         int m;
         int a;
-    public:
         Fecha();
         Fecha(int,int,int);
         Fecha(const Fecha&);
@@ -51,14 +50,28 @@ class Fecha{
         return (f.a == a && f.m == m && f.d == d);
     }
 
+    ostream &operator<<(ostream &salida,const Fecha &f){
+        salida << f.d << "/" << f.m << "/" << f.a << "\n";
+        return salida;
+    }
+
+    istream &operator>>(istream &salida, Fecha &f){
+        std::cout << "Ingrese dia:  \n";
+        salida >>f.d;
+        std::cout << "Ingrese mes: \n";
+        salida>> f.m;
+        std::cout << "Ingrese anio: \n";
+        salida >> f.a;
+        return salida;
+    }
+
     int main(){
         Fecha f1;
+        cin >> f1;
         Fecha f2(25,10,2001);
-        if(!f1.comparacion(f2))
-            std::cout << "Las fechas son distintas \n";
+        cout << f2;
         f2 = f2.avanzar(1);
-        if(f1.comparacion(f2))
-            std::cout << "Las fechas son iguales \n";
+        cout << f1;
         std::cout << "ChauMundo \n";
         return 0;
     }

@@ -1,23 +1,10 @@
 #include <iostream>
 #include <cstring>
+#include <stdexcept>
+#include "ej6.h"
 using namespace std;
-class String{
-    private:
-        char* cadena;
-        int largo;
-    public:
-        String();
-        String(char*);
-        String(const String&);
-        ~String();
-        char* getElem();
-        bool enRango(int);
-        String operator+(String);
-        bool operator==(String);
-        char operator[](int);
-        friend ostream& operator << (ostream &o,String &s);
-        friend istream& operator >>(istream &i,String &s);    
-};
+
+
 
 String::String() :largo(0) {
     cadena = NULL;
@@ -26,13 +13,12 @@ String::String() :largo(0) {
 String::String(char* c) : cadena(c), largo(strlen(c)) {}
 
 
-
 String::String(const String& s) : cadena(s.cadena), largo(s.largo) {
 }
 
 String::~String(){}
 
-char* String::getElem(){
+char* String::getElem()const{
     return cadena;
 }
 
@@ -42,7 +28,7 @@ bool String::enRango(int index) {
 
 String String::operator+(String s) {
     char* n = new char[largo+1+s.largo];
-    n = strcat(cadena,s.cadena);
+    n = strcat(cadena,s.getElem());
     String aux = n;
     return aux;
 }
@@ -60,33 +46,22 @@ bool String::operator==(String s) {
 }
 
 char String::operator[](int pos){
-    try
-    {
-        cadena[pos];
+    if(pos<largo && pos>=0){
         return cadena[pos];
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << e.what() << '\n';
-        return 'a';
+    }else{
+        throw ExcepFueraDeRango(); 
     }
 }
 
-ostream& operator<<(ostream &o,String &s){
-    o<< s.getElem();
+ostream &operator<<(ostream &o,String &t){
+    o<< t.getElem() << '\n'; 
     return o;
 }
-istream& operator>>(istream &i,String &s){
+istream &operator>>(istream &i,String &t){
     cout << "Introducir string";
     char buffer[100];
-    i.getline(buffer, 100);
-    s = buffer;
+    i.getline(buffer, 100); //Me lee hasta que termine la linea
+    t = (buffer);
     return i;
 }
 
-int main() {
-    String s;
-    cin >> s;
-    cout << s;
-    return 0;
-}
